@@ -33,12 +33,18 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+#ifndef __cplusplus
+#if __STDC_VERSION__ >= 199901L
+#include <stdbool.h>
+#else
+#define false   0
+#define true    1
+#define bool char
+#endif
+#endif
+
 #ifdef WIN32
   #include <windows.h>
-
-  #define false   0
-  #define true    1
-  #define bool char
 
   #define LOAD_PLUGIN( pluginPath ) LoadLibrary( pluginPath )
   #define LOAD_PLUGIN_SYMBOL( pluginHandle, functionName ) GetProcAddress( pluginHandle, functionName )
@@ -48,7 +54,6 @@
   #define PLUGIN_EXTENSION "dll"
 #elif __unix__
   #include <stdint.h>
-  #include <stdbool.h>
   #include <dlfcn.h>
   #include <unistd.h>
   #define __declspec(dllexport)
