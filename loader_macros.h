@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
-//  Copyright (c) 2016-2017 Leonardo Consoni <consoni_2519@hotmail.com>       //
+//  Copyright (c) 2016-2018 Leonardo Consoni <consoni_2519@hotmail.com>       //
 //                                                                            //
 //  This file is part of Plugin Loader.                                       //
 //                                                                            //
@@ -121,9 +121,7 @@
 #define LOAD_MODULE_IMPLEMENTATION( INTERFACE, pluginPath, Module, success ) \
   do { char pluginPathExt[ 256 ]; \
   sprintf( pluginPathExt, "%s." PLUGIN_EXTENSION, pluginPath ); \
-  printf( "\ttrying to load plugin %s\n", pluginPathExt ); \
   PLUGIN_HANDLE pluginHandle = LOAD_PLUGIN( pluginPathExt ); \
-  printf( "\tplugin handle: %p\n", pluginHandle ); \
   *(success) = (bool) pluginHandle; \
   LOAD_PLUGIN_FUNCTIONS( INTERFACE, (Module) ) } while( 0 )
 
