@@ -103,6 +103,9 @@
 
 /// Automates loading of a library Functiontion symbol and its attribuition to a correspondent interface struct Functiontion field 
 #define LOAD_PLUGIN_FUNCTION( rtype, implementationRef, Function, ... ) implementationRef -> Function = (rtype (*)( __VA_ARGS__ )) LOAD_PLUGIN_SYMBOL( pluginHandle, NAME_STRING( Function ) );
+                                                                        
+
+#define PRINT_PLUGIN_FUNCTION( rtype, implementationRef, Function, ... ) fprintf( stderr, "loaded symbol %s: %p\n", NAME_STRING( Function ), implementationRef -> Function );
 
 /// Automates declaration of all exported symbol library Functiontions from @a INTERFACE interface definition    
 #define DECLARE_MODULE_INTERFACE( INTERFACE ) INTERFACE( Module, DECLARE_MODULE_FUNCTION )
@@ -116,6 +119,8 @@
 
 /// Automates loading of ibrary Functiontion symbols defined in @a INTERFACE definition and their attribuition to correspondent interface struct Functiontion fields 
 #define LOAD_PLUGIN_FUNCTIONS( INTERFACE, Module ) INTERFACE( Module, LOAD_PLUGIN_FUNCTION )
+
+#define PRINT_PLUGIN_FUNCTIONS( INTERFACE, Module ) INTERFACE( Module, PRINT_PLUGIN_FUNCTION )
       
 /// Automates loading of dynamic library from @a pluginPath and of its exported Functiontion symbols defined in @a INTERFACE interface definition (sets @a success to false on error)
 #define LOAD_MODULE_IMPLEMENTATION( INTERFACE, pluginPath, Module, success ) \
