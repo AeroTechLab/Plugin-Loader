@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['plugin_2dloader',['Plugin-Loader',['../index.html',1,'']]]
+  ['plug_2din_20loader',['Plug-in Loader',['../index.html',1,'']]]
 ];
