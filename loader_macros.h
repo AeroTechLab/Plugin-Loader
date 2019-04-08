@@ -49,6 +49,7 @@
   #define LOAD_PLUGIN( pluginPath ) LoadLibrary( pluginPath )
   #define LOAD_PLUGIN_SYMBOL( pluginHandle, functionName ) GetProcAddress( pluginHandle, functionName )
   #define UNLOAD_PLUGIN( pluginHandle ) FreeLibrary( pluginHandle )
+  #define LOAD_PLUGIN_PRINT_ERROR( pluginPathExt ) fprintf( stderr, "error: unable to load %s: %d\n", pluginPathExt, GetLastError() )
   
   #define PLUGIN_HANDLE HINSTANCE
   #define PLUGIN_EXTENSION "dll"
@@ -61,6 +62,7 @@
   #define LOAD_PLUGIN( pluginPath ) dlopen( pluginPath, RTLD_NOW )
   #define LOAD_PLUGIN_SYMBOL( pluginHandle, functionName ) ( (intptr_t) dlsym( pluginHandle, functionName ) )
   #define UNLOAD_PLUGIN( pluginHandle ) dlclose( pluginHandle ) 
+  #define LOAD_PLUGIN_PRINT_ERROR( pluginPathExt ) fprintf( stderr, "error: unable to load %s: %s\n", pluginPathExt, dlerror() )
   
   #define PLUGIN_HANDLE void*
   #define PLUGIN_EXTENSION "so" 
@@ -128,6 +130,7 @@
   sprintf( pluginPathExt, "%s." PLUGIN_EXTENSION, pluginPath ); \
   PLUGIN_HANDLE pluginHandle = LOAD_PLUGIN( pluginPathExt ); \
   *(success) = (bool) pluginHandle; \
+  if( pluginHandle == NULL ) LOAD_PLUGIN_PRINT_ERROR( pluginPathExt ); \
   LOAD_PLUGIN_FUNCTIONS( INTERFACE, (Module) ) } while( 0 )
 
 
